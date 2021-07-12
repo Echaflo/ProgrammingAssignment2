@@ -9,14 +9,14 @@ makeCacheMatrix <- function(x = matrix()) {
   ### the state across function invocations by allowing a function to modify variables 
   ### in the environment of its parent
   
-  j <- NULL
+  j <- NULL      ##initializing inverse as NUll
   set <- function(y){
     x <<- y
     j <<- NULL
   }
-  get <- function()x
-  setInverse <- function(inverse) j <<- inverse
-  getInverse <- function() j 
+  get <- function()x     ## function to get matrix 
+  setInverse <- function(inverse) j <<- inverse   #function to obttain inverse of the matrix
+  getInverse <- function() j   
   list(set = set, get = get, 
        setInverse = setInverse, 
        getInverse = getInverse)
@@ -35,13 +35,13 @@ cacheSolve <- function(x, ...) {
   
   ## Return a matrix that is the inverse of 'x'
   j <- x$getInverse()
-  if(!is.null(j)){
+  if(!is.null(j)){                      ### checking whether inverse is null
     message("getting cached data")
-    return(j)
+    return(j)                          ## retunr is null
   }
   mat <- x$get()
-  j <- solve(mat,...)
+  j <- solve(mat,...)        ##calculate value is not null
   x$setInverse(j)
-  j
+  j                         ## return value
   
 }
